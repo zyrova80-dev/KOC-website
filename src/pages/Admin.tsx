@@ -92,8 +92,7 @@ const handleLogout = async () => {
 
           <h2>Recent Messages</h2>
 
-          <table>
-
+          <table className="table-container">
             <thead>
                 <tr>
                     <th>Name</th>
