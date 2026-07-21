@@ -1,7 +1,31 @@
+import { useState } from "react";
 import "./App.css"
 import logo from "./assets/logo3.png";
+import{ addDoc, collection } from "firebase/firestore";
+import { db } from "./firebase";
 
 function App () {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, "messages"), {
+        name,
+        email,
+        message,
+      });
+      // reset form on success
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  } 
+
   return (
     <>
     <nav>
@@ -93,11 +117,26 @@ function App () {
         <p>koc4ng@gmail.com</p>
       </div>
 
-      <form className="contact-form">
-        <input type="text" placeholder="Your Name"/>
-        <input type="text" placeholder="Your Email" />
+      <form className="contact-form"
+       onSubmit={handleSubmit}>
+        <input 
+        type="text" 
+        placeholder="Your Name"
+        value={name} 
+        onChange={(e) =>
+         setName(e.target.value)} />
 
-        <textarea rows={6} placeholder="Your message"></textarea>
+        <input 
+        type="text" 
+        placeholder="Your Email"
+        value={email}
+         onChange={(e) => 
+         setEmail(e.target.value)} />
+
+        <textarea rows={6} placeholder="Your message"
+        value={message} 
+        onChange={(e) =>
+         setMessage(e.target.value)}></textarea>
 
         <button type="submit">Send Message</button>
       </form>
