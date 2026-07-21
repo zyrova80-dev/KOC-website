@@ -1,99 +1,113 @@
+/* BASE STYLES (Desktop & Large Tablets) */
 .login-container {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    background:#f5f5f5;
-    padding:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f5f5;
+    padding: 20px;
+    box-sizing: border-box;
 }
-
 
 .login-card {
-    width:350px;
-    max-width:100%;
-    background:white;
-    padding:40px;
-    border-radius:12px;
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    width: 100%; /* Changed to 100% for fluid scaling */
+    max-width: 400px; /* Limits the width on large screens */
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+    box-sizing: border-box; /* Prevents padding from breaking the width */
 }
-
 
 .login-card h1 {
-    text-align:center;
-    color:#1e3a2f;
-    margin-bottom:10px;
+    text-align: center;
+    color: #1e3a2f;
+    margin-bottom: 10px;
 }
-
 
 .login-card p {
-    text-align:center;
-    margin-bottom:25px;
-    color:#777;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #777;
 }
-
 
 .login-card form {
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
-
 
 .login-card input {
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
-
 
 .login-card button {
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    background:#1e3a2f;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #1e3a2f;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.3s ease; /* Smooth hover effect */
 }
-
 
 .login-card button:hover {
-    background:#295541;
+    background: #295541;
 }
 
-
+/* TABLET & SMALLER LAPTOPS */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 30px;
+    }
+    
+    .login-card h1 {
+        font-size: 1.8rem;
+    }
+}
 
 /* MOBILE */
-
-@media(max-width:600px){
-
+@media (max-width: 480px) {
     .login-container {
-        padding:15px;
+        padding: 15px;
     }
-
 
     .login-card {
-        width:100%;
-        padding:25px;
+        padding: 25px;
+        border-radius: 10px; /* Slightly smaller radius on mobile */
     }
-
 
     .login-card h1 {
-        font-size:1.8rem;
+        font-size: 1.6rem;
     }
-
 
     .login-card p {
-        font-size:.95rem;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
     }
-
 
     .login-card input,
     .login-card button {
-        font-size:15px;
+        font-size: 15px;
+        padding: 10px; /* Optimized for touch tapping */
     }
+}
 
+/* VERY SMALL MOBILE (e.g., older small phones) */
+@media (max-width: 360px) {
+    .login-card {
+        padding: 20px;
+    }
+    
+    .login-card h1 {
+        font-size: 1.4rem;
+    }
 }
