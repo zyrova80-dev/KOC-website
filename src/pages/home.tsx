@@ -1,55 +1,97 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../App.css"
 import logo from "../assets/logo3.png";
-import{ addDoc, collection } from "firebase/firestore";
+import{ addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
+import {
+  FaBalanceScale,
+  FaUserTie,
+  FaHandshake,
+  FaClock,
+  FaUsers,
+  FaGlobeAfrica,
+} from "react-icons/fa";
+
+const iconMap = {
+  FaBalanceScale,
+  FaUserTie,
+  FaHandshake,
+  FaClock,
+  FaUsers,
+  FaGlobeAfrica,
+} as const;
+
+type Feature = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+};
 
 function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+    const [feature, setFeature] = useState<Feature[]>([]);
+    useEffect(() => {
+      const fetchFeatures = async () => {
+        const querySnapshot = await getDocs(collection(db, "features"));
 
-  if (!name.trim()) {
-  alert("Please enter your name.");
-  return;
-}
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Feature, "id">),
+        }));
 
-if (!email.includes("@")) {
-  alert("Please enter a valid email.");
-  return;
-}
+        setFeature(data);
+      };
 
-if (message.trim().length < 10) {
-  alert("Message must be at least 10 characters.");
-  return;
-}
+      fetchFeatures();
+    }, []);
+    console.log(feature);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  setLoading(true);
+    
 
-  try {
-    await addDoc(collection(db, "messages"), {
-      name,
-      email,
-      message,
-      createdAt: new Date(),
-    });
+    if (!name.trim()) {
+      alert("Please enter your name.");
+      return;
+    }
 
-    setName("");
-    setEmail("");
-    setMessage("");
+    if (!email.includes("@")) {
+      alert("Please enter a valid email.");
+      return;
+    }
 
-    alert("Message sent successfully!");
-  } catch (error) {
-    console.error(error);
-    alert("Failed to send message.");
-  } finally {
-    setLoading(false);
+    if (message.trim().length < 10) {
+      alert("Message must be at least 10 characters.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await addDoc(collection(db, "messages"), {
+        name,
+        email,
+        message,
+        createdAt: new Date(),
+      });
+
+      setName("");
+      setEmail("");
+      setMessage("");
+
+      alert("Message sent successfully!");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send message.");
+    } finally {
+      setLoading(false);
+    }
   }
-};
   return (
     <>
     <nav>
@@ -60,6 +102,7 @@ if (message.trim().length < 10) {
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
+          <li><a href="#features">Why Us</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -119,6 +162,23 @@ if (message.trim().length < 10) {
             Expert advice on property investment, acquisition, development, and real estate decisions.
           </p>
         </div>
+      </div>
+    </section>
+
+    <section className="features" id="features">
+      <h2>Why Choose Us</h2>
+      <div className="feature-grid">
+        {feature.map((feature) => {
+          const Icon = iconMap[feature.icon as keyof typeof iconMap];
+
+          return (
+            <div className="feature-card" key={feature.id}>
+              {Icon && <Icon size={40} className="feature-icon" />}
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+          );
+    })}
       </div>
     </section>
 
