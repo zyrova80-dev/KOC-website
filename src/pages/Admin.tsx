@@ -10,6 +10,7 @@ import {
 import { signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 type Message = {
   id: string;
@@ -127,6 +128,9 @@ function Admin() {
         <ul>
           <li>📊 Dashboard</li>
           <li>📨 Messages</li>
+          <li>
+            <Link to="/features" className="admin-link">Features</Link>
+          </li>
           <li onClick={handleLogout}>🚪 Logout</li>
         </ul>
       </aside>

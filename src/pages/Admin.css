@@ -244,3 +244,9 @@ th {
         font-size: 0.85rem;
     }
 }
+
+.admin-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
