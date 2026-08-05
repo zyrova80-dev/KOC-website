@@ -9,6 +9,9 @@ import {
 import { db } from "../firebase";
 import "./Features.css";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/sidebar";
+import { signOut } from "firebase/auth"
+import { auth } from "../firebase"
 
 type Feature = {
   id: string;
@@ -23,6 +26,14 @@ function Features() {
   const [icon, setIcon] = useState("");
   const [features, setFeatures] = useState<Feature[]>([]);
   const navigate = useNavigate();
+      const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   // Fetch all features from Firestore
   const fetchFeatures = async () => {
@@ -71,90 +82,85 @@ function Features() {
   };
 
   return (
-    <div className="features-page">
-        <button
-  className="back-btn"
-  onClick={() => navigate("/admin")}
->
-  ← Back to Dashboard
-</button>
-      <h1>Features Management</h1>
+    <>
+      <Sidebar onLogout={handleLogout} />
+      <div className="features-page">
+        <h1>Features Management</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Feature Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Feature Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)} />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <textarea
-          placeholder="Feature Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+          <textarea
+            placeholder="Feature Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)} />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <select
-          value={icon}
-          onChange={(e) => setIcon(e.target.value)}
-        >
-          <option value="">Select an Icon</option>
-          <option value="FaBalanceScale">Balance Scale</option>
-          <option value="FaUserTie">User Tie</option>
-          <option value="FaHandShake">Handshake</option>
-          <option value="FaClock">Clock</option>
-          <option value="FaUsers">Users</option>
-          <option value="FaGlobeAfrica">Globe Africa</option>
-        </select>
+          <select
+            value={icon}
+            onChange={(e) => setIcon(e.target.value)}
+          >
+            <option value="">Select an Icon</option>
+            <option value="FaBalanceScale">Balance Scale</option>
+            <option value="FaUserTie">User Tie</option>
+            <option value="FaHandShake">Handshake</option>
+            <option value="FaClock">Clock</option>
+            <option value="FaUsers">Users</option>
+            <option value="FaGlobeAfrica">Globe Africa</option>
+          </select>
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <button type="submit">Add Feature</button>
-      </form>
+          <button type="submit">Add Feature</button>
+        </form>
 
-      <hr />
+        <hr />
 
-      <h2>Current Features</h2>
+        <h2>Current Features</h2>
 
-      {features.length === 0 ? (
-        <p>No features found.</p>
-      ) : (
-        <div className="features-grid">
-          {features.map((feature) => (
-            <div className="feature-card" key={feature.id}>
-              <div className="card-header">
-                <div className="card-info">
-                  <h3>{feature.title}</h3>
-                  <small>{feature.icon}</small>
+        {features.length === 0 ? (
+          <p>No features found.</p>
+        ) : (
+          <div className="features-grid">
+            {features.map((feature) => (
+              <div className="feature-card" key={feature.id}>
+                <div className="card-header">
+                  <div className="card-info">
+                    <h3>{feature.title}</h3>
+                    <small>{feature.icon}</small>
+                  </div>
+
+                  <div className="card-actions">
+                    <button className="edit-btn">
+                      ✏️
+                    </button>
+
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(feature.id)}
+                    >
+                      🗑️
+                    </button>
+                  </div>
                 </div>
 
-                <div className="card-actions">
-                  <button className="edit-btn">
-                    ✏️
-                  </button>
-
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(feature.id)}
-                  >
-                    🗑️
-                  </button>
-                </div>
+                <p>{feature.description}</p>
               </div>
-
-              <p>{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

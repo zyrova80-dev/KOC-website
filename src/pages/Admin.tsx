@@ -11,6 +11,10 @@ import { signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"
+import Sidebar from "../components/sidebar";
+import DashboardCard from "../components/DashboardCard";
+import { FaCalendarDay, FaEnvelope, FaEnvelopeOpen } from "react-icons/fa";
+import { Settings } from "./Settings"; // Import the Settings component
 
 type Message = {
   id: string;
@@ -26,7 +30,7 @@ function Admin() {
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const handleLogout = async () => {
+    const handleLogout = async () => {
     try {
       await signOut(auth);
       navigate("/");
@@ -123,18 +127,7 @@ function Admin() {
 
   return (
     <div className="dashboard">
-      <aside className="sidebar">
-        <h2>KOC Admin</h2>
-        <ul>
-          <li>📊 Dashboard</li>
-          <li>📨 Messages</li>
-          <li>
-            <Link to="/features" className="admin-link">Features</Link>
-          </li>
-          <li onClick={handleLogout}>🚪 Logout</li>
-        </ul>
-      </aside>
-
+      <Sidebar onLogout={handleLogout} />
       <main className="main-content">
         <header className="header">
           <h1>Dashboard</h1>
@@ -142,19 +135,31 @@ function Admin() {
         </header>
 
         <section className="cards">
-          <div className="card">
-            <h3>Total Messages</h3>
-            <h1>{totalMessages}</h1>
-          </div>
+          <DashboardCard
+          title="Total Messages"
+          value={totalMessages}
+          icon=<FaEnvelope/> />
 
-          <div className="card">
-            <h3>Unread</h3>
-            <h1>{unreadMessages}</h1>
-          </div>
+        <DashboardCard
+        title="unread"
+        value={unreadMessages}
+        icon=<FaEnvelopeOpen/> />
 
-          <div className="card">
-            <h3>Today's Messages</h3>
-            <h1>{todayMessages}</h1>
+        <DashboardCard
+        title="Today's Messages"
+        value={todayMessages} 
+        icon=<FaCalendarDay/> />
+        </section>
+
+        <section className="quick-actions">
+          <h2>Quick Actions</h2>
+          <div className="action-grid">
+            <button onClick={() =>
+             navigate("/ content?type=team")}>Add Team Member</button>
+            <button onClick={() =>
+             navigate("/ content?type=services")}>Add Service</button>
+            <button onClick={() =>
+             navigate("/ content?type=testimonials")}>Add Testimonial</button>
           </div>
         </section>
 

@@ -1,0 +1,62 @@
+.settings-page {
+    padding: 30px;
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f7fb;
+}
+
+.settings-title {
+    margin-bottom: 25px;
+    color: #222;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.settings-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.settings-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.settings-card label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.settings-card input,
+.settings-card textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.settings-card textarea {
+    resize: vertical;
+}
+
+.save-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: .3s;
+}
+
+.save-btn:hover {
+    background: #1d4ed8;
+}
