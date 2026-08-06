@@ -1,0 +1,70 @@
+.zy-btn {
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 22px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+/* Primary */
+
+.zy-btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.zy-btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+/* Secondary */
+
+.zy-btn-secondary {
+    background: #f3f4f6;
+    color: var(--text-primary);
+}
+
+.zy-btn-secondary:hover {
+    background: #e5e7eb;
+}
+
+/* Danger */
+
+.zy-btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.zy-btn-danger:hover {
+    background: #b91c1c;
+}
+
+/* Success */
+
+.zy-btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.zy-btn-success:hover {
+    background: #15803d;
+}
+
+/* Outline */
+
+.zy-btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+.zy-btn-outline:hover {
+    background: #f8fafc;
+}
+
+.zy-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}

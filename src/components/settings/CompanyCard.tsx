@@ -1,4 +1,5 @@
 import type { CompanySettings } from "../../services/settingsService";
+import { Card } from "../ui";
 
 interface CompanyCardProps {
     settings: CompanySettings;
@@ -7,9 +8,9 @@ interface CompanyCardProps {
 
 export default function CompanyCard({ settings, onChange }: CompanyCardProps) {
     return (
-        <div className="settings-card">
-            <h2>Company Information</h2>
+        <Card title="Company Information">
 
+            
             <label>Company Name</label>
             <input
                 type="text"
@@ -32,6 +33,8 @@ export default function CompanyCard({ settings, onChange }: CompanyCardProps) {
                onChange={onChange}
                rows={5}
                />
-        </div>
+
+</Card>
+
     )
 }

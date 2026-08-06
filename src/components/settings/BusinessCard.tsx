@@ -1,4 +1,5 @@
 import type { CompanySettings } from "../../services/settingsService";
+import { Card } from "../ui";
 
 interface BusinessCardProps {
   settings: CompanySettings;
@@ -12,10 +13,9 @@ export default function BusinessCard({
   onChange,
 }: BusinessCardProps) {
   return (
-    <div className="settings-card">
-      <h2>Business Information</h2>
+    <Card title="Business Information">
 
-      <label>Business Hours</label>
+            <label>Business Hours</label>
       <textarea
         name="businessHours"
         value={settings.businessHours}
@@ -30,6 +30,8 @@ export default function BusinessCard({
         value={settings.copyright}
         onChange={onChange}
       />
-    </div>
+
+</Card>
+
   );
 }

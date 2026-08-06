@@ -4,6 +4,7 @@ import logo from "../assets/logo3.png";
 import{ addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
+import TeamSection from "../components/public/TeamSection";
 import {
   FaBalanceScale,
   FaUserTie,
@@ -12,6 +13,8 @@ import {
   FaUsers,
   FaGlobeAfrica,
 } from "react-icons/fa";
+import { useCompanySettings } from "../hooks/useCompanySettings";
+import { Card, Spinner } from "../components/ui";
 
 const iconMap = {
   FaBalanceScale,
@@ -30,25 +33,36 @@ type Feature = {
 };
 
 function Home() {
+  const { settings, loading } = useCompanySettings();
+
+  const company = settings;
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-    const [feature, setFeature] = useState<Feature[]>([]);
-    useEffect(() => {
-      const fetchFeatures = async () => {
-        const querySnapshot = await getDocs(collection(db, "features"));
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [feature, setFeature] = useState<Feature[]>([]);
 
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as Omit<Feature, "id">),
-        }));
+  useEffect(() => {
+    const fetchFeatures = async () => {
+      const querySnapshot = await getDocs(collection(db, "features"));
 
-        setFeature(data);
-      };
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Feature, "id">),
+      }));
 
-      fetchFeatures();
-    }, []);
+      setFeature(data);
+    };
+
+    fetchFeatures();
+  }, []);
+
+if (loading) {
+    return (
+        <Spinner text="Loading..." />
+    );
+}
     console.log(feature);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -70,7 +84,7 @@ function Home() {
       return;
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
 
     try {
       await addDoc(collection(db, "messages"), {
@@ -89,32 +103,33 @@ function Home() {
       console.error(error);
       alert("Failed to send message.");
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   }
   return (
     <>
     <nav>
       <div className="logo">
-        <img src={logo} alt="Kunle Owonikoko Consultings logo" />
+        <img
+  src={company?.logo || logo}
+  alt={company?.companyName || "Company Logo"}
+/>
       </div>
         <ul>
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#features">Why Us</a></li>
+          <li><a href="#team">Team</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
     <section className="hero" id="hero">
       <div className="hero-content">
-        <h1>Kunle Owonikoko Consultings</h1>
-        <h2>Estate Surveryors & Valuers</h2>
-          <p>
-            Helping individuals, businesses, and organisations make informed property decisions with trusted
-            valuation and consultancy services.
-          </p>
+        <h1>{company?.companyName}</h1>
+        <h2>{company?.tagline}</h2>
+          <p>{company?.description}</p>
           <a href="#contact" className="cont">Contact us</a>
       </div>
     </section>
@@ -140,28 +155,25 @@ function Home() {
       <h2>Our Services</h2>
       <div className="service-card">
 
-        <div className="card">
-          <h3>Property Valuation</h3>
+        <Card title="Property Valuation">
           <p>
             Accurate Property valuation for residential, commercial, industrial, and special-purpose 
             properties.
           </p>
-        </div>
+        </Card>
         
-        <div className="card">
-          <h3>Estate Management</h3>
+        <Card title="Estate Management">
           <p>
             Professional management of residential and commecial properties to maximise value
             and efficiency.
           </p>
-        </div>
+        </Card>
         
-        <div className="card">
-          <h3>Property Consultancy</h3>
+        <Card title="Property Consultancy">
           <p>
             Expert advice on property investment, acquisition, development, and real estate decisions.
           </p>
-        </div>
+        </Card>
       </div>
     </section>
 
@@ -181,7 +193,7 @@ function Home() {
     })}
       </div>
     </section>
-
+    <TeamSection />
     <section className="contact" id="contact">
       <h2>Contact Us</h2>
 
@@ -189,16 +201,14 @@ function Home() {
       
       <div className="contact-info">
         <h3>Get in touch</h3>
-        <p><strong>Office Address</strong></p>
-        <p>6th floor, Cocoa House Building,<br />Oba Adebimpe Road,<br />
-        Dugbe, Ibadan, Nigeria</p>
+       <p>{company?.address}</p>
 
         <p><strong>Phone</strong></p>
-        <p>08033591114</p>
-        <p>09052749685</p>
+        <p>{company?.phone1}</p>
+        <p>{company?.phone2}</p>
 
         <p><strong>Email</strong></p>
-        <p>koc4ng@gmail.com</p>
+        <p>{company?.email}</p>
       </div>
 
       <form className="contact-form" onSubmit={handleSubmit}>
@@ -226,8 +236,8 @@ function Home() {
     required
   />
 
-<button type="submit" disabled={loading}>
-  {loading ? "Sending..." : "Send Message"}
+<button type="submit" disabled={isSubmitting}>
+  {isSubmitting ? "Sending..." : "Send Message"}
 </button>
 </form>
       </div> 

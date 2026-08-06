@@ -5,6 +5,7 @@ import Admin from "./pages/Admin";
 import Features from "./pages/Features"
 import ContentManager from "./pages/ContentManager";
 import { Settings } from "./pages/Settings";
+import Team from "./pages/Team";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/features" element={<Features />} />
         <Route path="/content" element={<ContentManager/>} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/team" element={<Team />} />
       </Routes>
     </BrowserRouter>
   );

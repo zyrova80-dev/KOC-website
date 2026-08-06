@@ -35,7 +35,10 @@ function Sidebar ({ onLogout }:
 
             <li>🛠 Services</li>
 
-            <li>👥 Team</li>
+            <li> <Link className="admin-link" to="/team">
+                    👥 Team
+                </Link>
+            </li>
 
             <li>🖼 Gallery</li>
 

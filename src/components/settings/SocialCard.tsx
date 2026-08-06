@@ -1,4 +1,5 @@
 import type { CompanySettings } from "../../services/settingsService";
+import { Card } from "../ui";
 
 interface SocialCardProps {
   settings: CompanySettings;
@@ -12,8 +13,7 @@ export default function SocialCard({
   onChange,
 }: SocialCardProps) {
   return (
-    <div className="settings-card">
-      <h2>Social Media</h2>
+    <Card title="Social Media">
 
       <label>Facebook</label>
       <input
@@ -54,6 +54,6 @@ export default function SocialCard({
         value={settings.whatsapp}
         onChange={onChange}
       />
-    </div>
+    </Card>
   );
 }

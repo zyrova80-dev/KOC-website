@@ -1,0 +1,94 @@
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+
+.team-member-card {
+    background: #f9fafb;
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+
+.team-member-card h3 {
+    color: #222;
+    margin-bottom: 8px;
+}
+
+
+.team-member-card p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+
+.team-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+
+.edit-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.image-preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.image-preview img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   SEARCH BAR
+========================== */
+
+.search-bar {
+    margin: 20px 0 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-bar input {
+    width: 350px;
+    max-width: 100%;
+    padding: 12px 18px;
+    font-size: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: #fff;
+    outline: none;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+}
+
+.search-bar input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}

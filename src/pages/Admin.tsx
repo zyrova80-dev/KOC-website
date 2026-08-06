@@ -15,6 +15,7 @@ import Sidebar from "../components/sidebar";
 import DashboardCard from "../components/DashboardCard";
 import { FaCalendarDay, FaEnvelope, FaEnvelopeOpen } from "react-icons/fa";
 import { Settings } from "./Settings"; // Import the Settings component
+import { Card } from "../components/ui";
 
 type Message = {
   id: string;
@@ -135,20 +136,23 @@ function Admin() {
         </header>
 
         <section className="cards">
-          <DashboardCard
-          title="Total Messages"
-          value={totalMessages}
-          icon=<FaEnvelope/> />
+          <Card title="Total Messages">
+             value={totalMessages}
+          icon=<FaEnvelope/> 
+          </Card>
+          
+         
 
-        <DashboardCard
-        title="unread"
+        <Card title="unread">
         value={unreadMessages}
-        icon=<FaEnvelopeOpen/> />
+        icon=<FaEnvelopeOpen/> </Card>
 
-        <DashboardCard
-        title="Today's Messages"
-        value={todayMessages} 
-        icon=<FaCalendarDay/> />
+        <Card
+        title="Today's Messages">
+                  value={todayMessages} 
+        icon=<FaCalendarDay/>
+        </Card>
+ 
         </section>
 
         <section className="quick-actions">

@@ -1,4 +1,5 @@
 import type { CompanySettings } from "../../services/settingsService";
+import { Card } from "../ui";
 
 interface ContactCardProps {
   settings: CompanySettings;
@@ -12,8 +13,8 @@ export default function ContactCard({
   onChange,
 }: ContactCardProps) {
   return (
-    <div className="settings-card">
-      <h2>Contact Information</h2>
+    <Card title="Contact Information">
+      
 
       <label>Email</label>
       <input
@@ -46,6 +47,6 @@ export default function ContactCard({
         onChange={onChange}
         rows={3}
       />
-    </div>
+    </Card>
   );
 }

@@ -1,4 +1,5 @@
 import type { CompanySettings } from "../../services/settingsService";
+import { Card } from "../ui";
 
 interface BrandingCardProps {
   settings: CompanySettings;
@@ -12,8 +13,7 @@ export default function BrandingCard({
   onChange,
 }: BrandingCardProps) {
   return (
-    <div className="settings-card">
-      <h2>Branding</h2>
+    <Card title="Branding">
 
       <label>Logo URL</label>
       <input
@@ -22,6 +22,6 @@ export default function BrandingCard({
         value={settings.logo}
         onChange={onChange}
       />
-    </div>
+    </Card>
   );
 }

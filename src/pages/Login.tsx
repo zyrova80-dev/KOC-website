@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import "./Login.css";
+import { Card } from "../components/ui";
 
 function Login() {
   const navigate = useNavigate();
@@ -26,9 +27,8 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="login-card">
+      <Card title="KOC Admin Login">
 
-        <h1>KOC Admin</h1>
         <p>Staff Login</p>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
@@ -57,7 +57,7 @@ function Login() {
 
         </form>
 
-      </div>
+      </Card>
     </div>
   );
 }
