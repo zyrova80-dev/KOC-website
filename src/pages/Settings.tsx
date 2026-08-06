@@ -14,6 +14,7 @@ import "../styles/settings.css";
 import SocialCard from "../components/settings/SocialCard";
 import BrandingCard from "../components/settings/BrandingCard";
 import BusinessCard from "../components/settings/BusinessCard";
+import { Spinner } from "../components/ui";
 
 export function Settings () {
     const navigate = useNavigate();
@@ -93,6 +94,10 @@ export function Settings () {
             setSaving(false);
         }
     };
+
+    if (loading) {
+    return <Spinner text="Loading settings..." />;
+}
 
 return (
   <>

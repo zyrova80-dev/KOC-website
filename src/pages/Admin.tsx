@@ -10,11 +10,8 @@ import {
 import { signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom"
 import Sidebar from "../components/sidebar";
-import DashboardCard from "../components/DashboardCard";
 import { FaCalendarDay, FaEnvelope, FaEnvelopeOpen } from "react-icons/fa";
-import { Settings } from "./Settings"; // Import the Settings component
 import { Card } from "../components/ui";
 
 type Message = {
