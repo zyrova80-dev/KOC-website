@@ -1,0 +1,105 @@
+/* =========================================
+   Zyrova UI - Table
+========================================= */
+
+.table-container{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:700px;
+
+}
+
+.table thead{
+
+    background:#f8fafc;
+
+}
+
+.table th{
+
+    padding:16px 20px;
+
+    text-align:left;
+
+    font-size:.85rem;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.05em;
+
+    color:var(--text-light);
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.table td{
+
+    padding:16px 20px;
+
+    color:var(--text);
+
+    border-bottom:1px solid var(--border);
+
+    vertical-align:middle;
+
+}
+
+.table tbody tr{
+
+    transition:var(--transition);
+
+}
+
+.table tbody tr:hover{
+
+    background:var(--primary-light);
+
+}
+
+.table tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+.table-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    justify-content:flex-end;
+
+}
+
+.table-empty{
+
+    text-align:center;
+
+    padding:50px;
+
+    color:var(--text-light);
+
+}

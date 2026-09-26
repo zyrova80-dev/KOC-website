@@ -1,41 +1,32 @@
 import "../../styles/ui/form.css";
 
-type TextAreaProps = {
-  label?: string;
-  name: string;
-  value: string;
-  onChange: (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  placeholder?: string;
-  rows?: number;
-  required?: boolean;
-};
-
-function TextArea({
-  label,
-  name,
-  value,
-  onChange,
-  placeholder = "",
-  rows = 4,
-  required = false,
-}: TextAreaProps) {
-  return (
-    <div className="zy-form-group">
-      {label && <label>{label}</label>}
-
-      <textarea
-        className="zy-textarea"
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        rows={rows}
-        required={required}
-      />
-    </div>
-  );
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement>{
+    label?:string;
+    error?:string;
 }
 
-export default TextArea;
+export default function TextArea({
+    label,
+    error,
+    ...props
+}:Props){
+
+    return(
+        <div className="form-group">
+
+            {label && <label className="form-label">{label}</label>}
+
+            <textarea
+                className="form-textarea"
+                {...props}
+            />
+
+            {error && (
+                <span className="form-error">
+                    {error}
+                </span>
+            )}
+
+        </div>
+    );
+}

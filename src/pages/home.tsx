@@ -14,7 +14,8 @@ import {
   FaGlobeAfrica,
 } from "react-icons/fa";
 import { useCompanySettings } from "../hooks/useCompanySettings";
-import { Card, Spinner } from "../components/ui";
+import { Button, Card, Input, Spinner, TextArea } from "../components/ui";
+import Services from "../pages/Services/Services";
 
 const iconMap = {
   FaBalanceScale,
@@ -32,6 +33,17 @@ type Feature = {
   icon: string;
 };
 
+type Service = {
+  id:string;
+  title:string;
+  shortDescription:string;
+  fullDescription:string;
+  icon:string;
+  displayOrder:number;
+  feautured:boolean;
+  active:boolean;
+};
+
 function Home() {
   const { settings, loading } = useCompanySettings();
 
@@ -42,21 +54,47 @@ function Home() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feature, setFeature] = useState<Feature[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
 
   useEffect(() => {
-    const fetchFeatures = async () => {
-      const querySnapshot = await getDocs(collection(db, "features"));
+    const fetchFeaturesAndServices = async () => {
+      try {
+        const featureSnapshot = await 
+        getDocs(
+          collection(db, "features")
+        );
 
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Omit<Feature, "id">),
-      }));
+        const featureData = 
+        featureSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Feature,"id">),
+        }));
 
-      setFeature(data);
+        setFeature(featureData);
+
+        const serviceSnapshot = await
+        getDocs(
+          collection(db, "services")
+        );
+
+        const serviceData = 
+        serviceSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Service, "id">),
+        }))
+        .filter((service) => service.active)
+        .sort((a, b) => a.displayOrder - b.displayOrder);
+
+        setServices(serviceData);
+      } catch(error) {
+        console.error("Failed to load features and services:", error);
+      }
     };
 
-    fetchFeatures();
+    fetchFeaturesAndServices();
   }, []);
+
+      
 
 if (loading) {
     return (
@@ -153,28 +191,15 @@ if (loading) {
 
     <section className="services" id="services">
       <h2>Our Services</h2>
-      <div className="service-card">
+     <div className="service-card">
+      {services.map((service) => (
+        <Card clickable key={service.id}>
+          <h3>{service.title}</h3>
 
-        <Card title="Property Valuation">
-          <p>
-            Accurate Property valuation for residential, commercial, industrial, and special-purpose 
-            properties.
-          </p>
+          <p>{service.shortDescription}</p>
         </Card>
-        
-        <Card title="Estate Management">
-          <p>
-            Professional management of residential and commecial properties to maximise value
-            and efficiency.
-          </p>
-        </Card>
-        
-        <Card title="Property Consultancy">
-          <p>
-            Expert advice on property investment, acquisition, development, and real estate decisions.
-          </p>
-        </Card>
-      </div>
+      ))}
+     </div>
     </section>
 
     <section className="features" id="features">
@@ -195,55 +220,134 @@ if (loading) {
     </section>
     <TeamSection />
     <section className="contact" id="contact">
-      <h2>Contact Us</h2>
+  <h2>Contact Us</h2>
 
-     <div className="contact-container">
-      
-      <div className="contact-info">
-        <h3>Get in touch</h3>
-       <p>{company?.address}</p>
+  <div className="contact-container">
 
-        <p><strong>Phone</strong></p>
-        <p>{company?.phone1}</p>
-        <p>{company?.phone2}</p>
+    <div className="contact-info">
+      <h3>Get in touch</h3>
 
-        <p><strong>Email</strong></p>
-        <p>{company?.email}</p>
-      </div>
+      <p>{company?.address}</p>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
-  <input
-    type="text"
-    placeholder="Your Name"
-    value={name}
-    onChange={(e) => setName(e.target.value)}
-    required
-  />
+      <p><strong>Phone</strong></p>
+      <p>{company?.phone1}</p>
+      <p>{company?.phone2}</p>
 
-  <input
-    type="email"
-    placeholder="Your Email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    required
-  />
+      <p><strong>Email</strong></p>
+      <p>
+        <a href={`mailto:${company?.email}`}>
+          {company?.email}
+        </a>
+      </p>
 
-  <textarea
-    rows={6}
-    placeholder="Your Message"
-    value={message}
-    onChange={(e) => setMessage(e.target.value)}
-    required
-  />
+      <p><strong>Business Hours</strong></p>
+      <p>{company?.businessHours}</p>
 
-<button type="submit" disabled={isSubmitting}>
-  {isSubmitting ? "Sending..." : "Send Message"}
-</button>
-</form>
-      </div> 
-    </section>
+      {company?.whatsapp && (
+        <p>
+          <a
+            href={`https://wa.me/${company.whatsapp.replace(/\D/g, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
+        </p>
+      )}
+    </div>
+
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        placeholder="Your Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+
+      <Input
+        type="email"
+        placeholder="Your Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+
+      <TextArea
+        rows={6}
+        placeholder="Your Message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        required
+      />
+
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Sending..." : "Send Message"}
+      </Button>
+    </form>
+
+  </div>
+</section>
+<footer className="site-footer">
+  <div className="footer-company">
+    <img
+      src={company?.logo || logo}
+      alt={company?.companyName || "Company Logo"}
+    />
+
+    <h3>{company?.companyName}</h3>
+
+    <p>{company?.tagline}</p>
+  </div>
+
+  <div className="footer-socials">
+    {company?.facebook && (
+      <a
+        href={company.facebook}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Facebook
+      </a>
+    )}
+
+    {company?.instagram && (
+      <a
+        href={company.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram
+      </a>
+    )}
+
+    {company?.linkedin && (
+      <a
+        href={company.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
+      </a>
+    )}
+
+    {company?.x && (
+      <a
+        href={company.x}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        X
+      </a>
+    )}
+  </div>
+
+  <p className="footer-copyright">
+    {company?.copyright}
+  </p>
+</footer>
           <Link to="/login">
-        <button>Admin Dashboard</button>
+        <Button>Admin Dashboard</Button>
       </Link>
     </>
   );

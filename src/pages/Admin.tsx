@@ -12,7 +12,10 @@ import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import { FaCalendarDay, FaEnvelope, FaEnvelopeOpen } from "react-icons/fa";
-import { Card } from "../components/ui";
+import { Button, Card } from "../components/ui";
+import Table from "../components/ui/Table";
+import TableHead from "../components/ui/TableHead";
+import TableBody from "../components/ui/TableBody";
 
 type Message = {
   id: string;
@@ -133,44 +136,39 @@ function Admin() {
         </header>
 
         <section className="cards">
-          <Card title="Total Messages">
-             value={totalMessages}
-          icon=<FaEnvelope/> 
+          <Card>
+            <div className="card-summary">
+              <h3>Total Messages</h3>
+              <p>{totalMessages}</p>
+              <FaEnvelope />
+            </div>
           </Card>
-          
-         
 
-        <Card title="unread">
-        value={unreadMessages}
-        icon=<FaEnvelopeOpen/> </Card>
+          <Card>
+            <div className="card-summary">
+              <h3>Unread</h3>
+              <p>{unreadMessages}</p>
+              <FaEnvelopeOpen />
+            </div>
+          </Card>
 
-        <Card
-        title="Today's Messages">
-                  value={todayMessages} 
-        icon=<FaCalendarDay/>
-        </Card>
- 
+          <Card>
+            <div className="card-summary">
+              <h3>Today's Messages</h3>
+              <p>{todayMessages}</p>
+              <FaCalendarDay />
+            </div>
+          </Card>
         </section>
 
-        <section className="quick-actions">
-          <h2>Quick Actions</h2>
-          <div className="action-grid">
-            <button onClick={() =>
-             navigate("/ content?type=team")}>Add Team Member</button>
-            <button onClick={() =>
-             navigate("/ content?type=services")}>Add Service</button>
-            <button onClick={() =>
-             navigate("/ content?type=testimonials")}>Add Testimonial</button>
-          </div>
-        </section>
 
         <section className="messages">
           <h2>Recent Messages</h2>
 
           {/* Fixed table structure to match the CSS wrapper */}
           <div className="table-container">
-            <table>
-              <thead>
+            <Table>
+              <TableHead>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
@@ -178,8 +176,8 @@ function Admin() {
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-              </thead>
-              <tbody>
+              </TableHead>
+              <TableBody>
                 {messages.map((msg) => (
                   // Added bold text for unread messages so they stand out
                   <tr key={msg.id} style={{ fontWeight: msg.status !== "read" ? "bold" : "normal" }}>
@@ -192,14 +190,14 @@ function Admin() {
                     </td>
                     <td>{msg.status === "read" ? "Read" : "Unread"}</td>
                     <td>
-                      <button onClick={() => handleViewMessage(msg)}>
+                      <Button onClick={() => handleViewMessage(msg)}>
                         View
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
 
           {selectedMessage && (
@@ -212,7 +210,7 @@ function Admin() {
                 <strong>Message:</strong>
               </p>
               <p>{selectedMessage.message}</p>
-              <button onClick={() => setSelectedMessage(null)}>Close</button>
+              <Button onClick={() => setSelectedMessage(null)}>Close</Button>
             </div>
           )}
         </section>

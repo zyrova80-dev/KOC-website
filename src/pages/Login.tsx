@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import "./Login.css";
-import { Card } from "../components/ui";
+import { Button, Card, Input } from "../components/ui";
 
 function Login() {
   const navigate = useNavigate();
@@ -27,33 +27,31 @@ function Login() {
 
   return (
     <div className="login-container">
-      <Card title="KOC Admin Login">
-
+      <Card >
+          <h2>KOC Admin Login</h2>
         <p>Staff Login</p>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <form onSubmit={handleLogin}>
 
-          <input
+          <Input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+            required name={""}          />
 
-          <input
+          <Input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            required name={""}          />
 
-          <button type="submit">
+          <Button type="submit">
             Login
-          </button>
+          </Button>
 
         </form>
 

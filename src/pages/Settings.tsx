@@ -14,7 +14,7 @@ import "../styles/settings.css";
 import SocialCard from "../components/settings/SocialCard";
 import BrandingCard from "../components/settings/BrandingCard";
 import BusinessCard from "../components/settings/BusinessCard";
-import { Spinner } from "../components/ui";
+import { Button, Spinner } from "../components/ui";
 
 export function Settings () {
     const navigate = useNavigate();
@@ -130,13 +130,12 @@ onChange={handleChange}
 settings={settings}
 onChange={handleChange} />     
 
-      <button
-        className="save-btn"
+      <Button
         onClick={handleSave}
         disabled={saving}
       >
         {saving ? "Saving..." : "Save Settings"}
-      </button>
+      </Button>
     </div>
   </>
   

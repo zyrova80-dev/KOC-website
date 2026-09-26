@@ -1,4 +1,5 @@
 import "../styles/confirmModal.css";
+import { Button } from "./ui";
 
 type ConfirmModalProps = {
   isOpen: boolean;
@@ -29,19 +30,19 @@ function ConfirmModal({
         <p>{message}</p>
 
         <div className="modal-actions">
-          <button
-            className="secondary-btn"
+          <Button
+          variant="secondary"
             onClick={onCancel}
           >
             {cancelText}
-          </button>
+          </Button>
 
-          <button
-            className="danger-btn"
+          <Button
+            variant="danger"
             onClick={onConfirm}
           >
             {confirmText}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

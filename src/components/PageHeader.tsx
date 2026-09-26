@@ -1,5 +1,6 @@
 import React from "react";
 import "./PageHeader.css";
+import { Button } from "./ui";
 
 type PageHeaderProps = {
     title: string;
@@ -22,12 +23,12 @@ const PageHeader: React.FC<PageHeaderProps> = ({
             </div>
             <div>
                 {buttonText && (
-                    <button
-                        className="page-header-button"
+                    <Button
+                    variant="primary"
                         onClick={onButtonClick}
                     >
                         {buttonText}
-                    </button>
+                    </Button>
                 )}
             </div>
         </div>

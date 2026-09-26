@@ -111,8 +111,9 @@ if (editingMember?.id) {
 
 
   return (
-    <Card title={editingMember ? "Edit Team Member" : "Add Team Member"}>
- <form onSubmit={handleSubmit}>
+    <Card>
+      <h2>{editingMember ? "Edit Team Member" : "Add Team Member"}</h2>
+      <form onSubmit={handleSubmit}>
 
       <Input
         name="name"

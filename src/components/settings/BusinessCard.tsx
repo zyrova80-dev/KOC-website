@@ -1,5 +1,5 @@
 import type { CompanySettings } from "../../services/settingsService";
-import { Card } from "../ui";
+import { Card, Input, TextArea } from "../ui";
 
 interface BusinessCardProps {
   settings: CompanySettings;
@@ -13,25 +13,24 @@ export default function BusinessCard({
   onChange,
 }: BusinessCardProps) {
   return (
-    <Card title="Business Information">
-
-            <label>Business Hours</label>
-      <textarea
+    <Card>
+      <TextArea
+        label="Business Hours"
         name="businessHours"
         value={settings.businessHours}
         onChange={onChange}
+        placeholder="Enter business hours"
         rows={3}
       />
 
-      <label>Footer Copyright</label>
-      <input
+      <Input
+        label="Footer Copyright"
         type="text"
         name="copyright"
         value={settings.copyright}
         onChange={onChange}
+        placeholder="Enter footer copyright"
       />
-
-</Card>
-
+    </Card>
   );
 }

@@ -1,0 +1,116 @@
+/* =========================================
+   Zyrova UI - Toast
+========================================= */
+
+.toast-container{
+    position:fixed;
+
+    top:24px;
+    right:24px;
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+
+    z-index:9999;
+}
+
+.toast{
+
+    min-width:320px;
+    max-width:420px;
+
+    display:flex;
+    align-items:center;
+    gap:16px;
+
+    padding:16px 20px;
+
+    background:var(--surface);
+
+    border-left:5px solid var(--primary);
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-lg);
+
+    animation:slideIn .3s ease;
+
+}
+
+.toast-success{
+    border-left-color:var(--success);
+}
+
+.toast-danger{
+    border-left-color:var(--danger);
+}
+
+.toast-warning{
+    border-left-color:var(--warning);
+}
+
+.toast-info{
+    border-left-color:var(--primary);
+}
+
+.toast-icon{
+    font-size:1.3rem;
+}
+
+.toast-success .toast-icon{
+    color:var(--success);
+}
+
+.toast-danger .toast-icon{
+    color:var(--danger);
+}
+
+.toast-warning .toast-icon{
+    color:var(--warning);
+}
+
+.toast-info .toast-icon{
+    color:var(--primary);
+}
+
+.toast-content{
+    flex:1;
+}
+
+.toast-title{
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:4px;
+}
+
+.toast-message{
+    color:var(--text-light);
+    font-size:.9rem;
+}
+
+.toast-close{
+
+    border:none;
+    background:none;
+
+    cursor:pointer;
+
+    color:var(--text-light);
+
+    font-size:1rem;
+
+}
+
+.toast-close:hover{
+    color:var(--danger);
+}
+
+@keyframes slideIn{
+
+    from{
+
+        opacity:0;
+        transform:translateX(20px);
+    }
+}

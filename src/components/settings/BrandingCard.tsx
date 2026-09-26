@@ -1,5 +1,5 @@
 import type { CompanySettings } from "../../services/settingsService";
-import { Card } from "../ui";
+import { Card, Input } from "../ui";
 
 interface BrandingCardProps {
   settings: CompanySettings;
@@ -13,14 +13,16 @@ export default function BrandingCard({
   onChange,
 }: BrandingCardProps) {
   return (
-    <Card title="Branding">
+    <Card>
+      <h3>Branding</h3>
 
-      <label>Logo URL</label>
-      <input
+      <Input
+        label="Logo URL"
         type="text"
         name="logo"
         value={settings.logo}
         onChange={onChange}
+        placeholder="Enter logo URL"
       />
     </Card>
   );

@@ -1,23 +1,42 @@
+import { FaFolderOpen } from "react-icons/fa";
 import "../../styles/ui/emptyState.css";
 
-type EmptyStateProps = {
-  title?: string;
-  message?: string;
-};
-
-function EmptyState({
-  title = "Nothing Here",
-  message = "There is currently no data to display.",
-}: EmptyStateProps) {
-  return (
-    <div className="zy-empty-state">
-      <div className="zy-empty-icon">📂</div>
-
-      <h3>{title}</h3>
-
-      <p>{message}</p>
-    </div>
-  );
+interface EmptyStateProps{
+    title:string;
+    description:string;
+    action?:React.ReactNode;
 }
 
-export default EmptyState;
+export default function EmptyState({
+    title,
+    description,
+    action
+}:EmptyStateProps){
+
+    return(
+
+        <div className="empty-state">
+
+            <div className="empty-icon">
+                <FaFolderOpen/>
+            </div>
+
+            <h3 className="empty-title">
+                {title}
+            </h3>
+
+            <p className="empty-description">
+                {description}
+            </p>
+
+            {action && (
+                <div className="empty-actions">
+                    {action}
+                </div>
+            )}
+
+        </div>
+
+    );
+
+}

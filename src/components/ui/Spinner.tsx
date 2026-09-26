@@ -1,19 +1,22 @@
 import "../../styles/ui/spinner.css";
 
-type SpinnerProps = {
-  text?: string;
-};
-
-function Spinner({
-  text = "Loading...",
-}: SpinnerProps) {
-  return (
-    <div className="zy-spinner-container">
-      <div className="zy-spinner"></div>
-
-      <p>{text}</p>
-    </div>
-  );
+interface SpinnerProps{
+    text?:string;
 }
 
-export default Spinner;
+export default function Spinner({
+    text="Loading..."
+}:SpinnerProps){
+
+    return(
+        <div className="spinner-container">
+
+            <div className="spinner"/>
+
+            <span className="spinner-text">
+                {text}
+            </span>
+
+        </div>
+    );
+}

@@ -1,29 +1,73 @@
 import "../../styles/ui/card.css";
 
-type CardProps = {
+interface CardProps {
   children: React.ReactNode;
-  title?: string;
   className?: string;
-};
+  clickable?: boolean;
+  flat?: boolean;
+}
 
-function Card({
+export default function Card({
   children,
-  title,
   className = "",
+  clickable = false,
+  flat = false,
 }: CardProps) {
   return (
-    <div className={`zy-card ${className}`}>
-      {title && (
-        <div className="zy-card-header">
-          <h2>{title}</h2>
-        </div>
-      )}
-
-      <div className="zy-card-body">
-        {children}
-      </div>
+    <div
+      className={`card ${clickable ? "card-clickable" : ""} ${
+        flat ? "card-flat" : ""
+      } ${className}`}
+    >
+      {children}
     </div>
   );
 }
 
-export default Card;
+export function CardHeader({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <div className="card-header">
+      <div>
+        <h2 className="card-title">{title}</h2>
+
+        {subtitle && (
+          <p className="card-subtitle">{subtitle}</p>
+        )}
+      </div>
+
+      {children}
+    </div>
+  );
+}
+
+export function CardBody({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="card-body">
+      {children}
+    </div>
+  );
+}
+
+export function CardFooter({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="card-footer">
+      {children}
+    </div>
+  );
+}

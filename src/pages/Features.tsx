@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import { signOut } from "firebase/auth"
 import { auth } from "../firebase"
+import { Button, Input, Select, TextArea } from "../components/ui";
 
 type Feature = {
   id: string;
@@ -88,19 +89,19 @@ function Features() {
         <h1>Features Management</h1>
 
         <form onSubmit={handleSubmit}>
-          <input
+          <Input
             type="text"
             placeholder="Feature Title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)} />
+            onChange={(e) => setTitle(e.target.value)} name={""} />
 
           <br />
           <br />
 
-          <textarea
+          <TextArea
             placeholder="Feature Description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)} />
+            onChange={(e) => setDescription(e.target.value)} name={""} />
 
           <br />
           <br />
@@ -121,7 +122,7 @@ function Features() {
           <br />
           <br />
 
-          <button type="submit">Add Feature</button>
+          <Button type="submit">Add Feature</Button>
         </form>
 
         <hr />
@@ -141,16 +142,16 @@ function Features() {
                   </div>
 
                   <div className="card-actions">
-                    <button className="edit-btn">
+                    <Button variant="secondary" onClick={() => navigate(`/edit-feature/${feature.id}`)}>
                       ✏️
-                    </button>
+                    </Button>
 
-                    <button
-                      className="delete-btn"
+                    <Button
+                      variant="danger"
                       onClick={() => handleDelete(feature.id)}
                     >
                       🗑️
-                    </button>
+                    </Button>
                   </div>
                 </div>
 

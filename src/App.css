@@ -400,4 +400,9 @@ nav a:hover {
     flex-direction:column;
     gap:30px;
   }
+} 
+
+a {
+  text-decoration: none;
+  color: white;
 }

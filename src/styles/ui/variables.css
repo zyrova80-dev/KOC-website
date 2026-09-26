@@ -1,39 +1,68 @@
 :root {
+  /* Brand */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #dbeafe;
 
-    /* Brand */
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #f59e0b;
+  --info: #0ea5e9;
 
-    --success: #16a34a;
-    --danger: #dc2626;
-    --warning: #f59e0b;
+  /* Backgrounds */
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface-hover: #f8fafc;
 
-    /* Backgrounds */
-    --background: #f5f7fb;
-    --surface: #ffffff;
+  /* Text */
+  --text: #111827;
+  --text-light: #6b7280;
+  --text-muted: #9ca3af;
 
-    /* Text */
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
+  /* Borders */
+  --border: #e5e7eb;
 
-    /* Borders */
-    --border: #e5e7eb;
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
 
-    /* Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.05);
+  --shadow-md: 0 6px 18px rgba(0,0,0,.08);
+  --shadow-lg: 0 12px 30px rgba(0,0,0,.12);
 
-    /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
-    --shadow-md: 0 6px 20px rgba(0,0,0,.10);
+  /* Fonts */
+  --font: "Inter", sans-serif;
 
-    /* Spacing */
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
+  --text-xs: .75rem;
+  --text-sm: .875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.4rem;
 
-    /* Animation */
-    --transition: .25s ease;
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+
+  /* Animation */
+  --transition: .25s ease;
+
+  /* Sidebar */
+  --sidebar-bg: #0f172a;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: #2563eb;
+
+  /* Layout */
+  --page-bg: #f8fafc;
+  --card-bg: #ffffff;
+
+  /* Focus */
+  --focus-ring: rgba(37,99,235,.25);
 }
