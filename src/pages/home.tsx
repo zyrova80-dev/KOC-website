@@ -15,7 +15,6 @@ import {
 } from "react-icons/fa";
 import { useCompanySettings } from "../hooks/useCompanySettings";
 import { Button, Card, Input, Spinner, TextArea } from "../components/ui";
-import Services from "../pages/Services/Services";
 
 const iconMap = {
   FaBalanceScale,
