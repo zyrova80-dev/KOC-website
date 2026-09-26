@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import { signOut } from "firebase/auth"
 import { auth } from "../firebase"
-import { Button, Input, Select, TextArea } from "../components/ui";
+import { Button, Input, TextArea } from "../components/ui";
 
 type Feature = {
   id: string;
