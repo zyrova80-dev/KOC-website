@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+sitemap:
+https://koc-website-seven.vercel.app/sitemap.xml
